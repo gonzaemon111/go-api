@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  api:
+    build: ./api
+    command: go run server.go
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api:/go/src/app
+    environment:
+      VIRTUAL_HOST: go-api.docker
