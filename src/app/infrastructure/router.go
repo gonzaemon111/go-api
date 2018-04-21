@@ -18,6 +18,7 @@ func init() {
 	router.GET("/users/:id", func(c *gin.Context) { userController.Show(c) })
 	router.GET("/users/", func(c *gin.Context) { userController.Index(c) })
 	router.PUT("/users/:id", func(c *gin.Context) { userController.Update(c) })
+	router.DELETE("/users/:id", func(c *gin.Context) { userController.Delete(c) })
 
 	Router = router
 }

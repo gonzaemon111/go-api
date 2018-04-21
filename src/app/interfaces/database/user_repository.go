@@ -30,3 +30,9 @@ func (repo *UserRepository) Edit(id int, user models.User) (models.User, error) 
 	updatedUser, err := repo.Update(id, user)
 	return updatedUser, err
 }
+
+// Destroy is to destroy a user
+func (repo *UserRepository) Destroy(id int) error {
+	err := repo.Delete(id)
+	return err
+}

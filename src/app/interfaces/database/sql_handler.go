@@ -10,4 +10,5 @@ type SQLHandler interface {
 	Find(int) (models.User, error)
 	All() ([]models.User, error)
 	Update(int, models.User) (models.User, error)
+	Delete(int) error
 }

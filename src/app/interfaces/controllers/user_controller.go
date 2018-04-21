@@ -69,3 +69,14 @@ func (controller *UserController) Update(c Context) {
 	}
 	c.JSON(200, updatedUser)
 }
+
+// Delete is to delete a user by id
+func (controller *UserController) Delete(c Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	err := controller.Interactor.UserDelete(id)
+	if err != nil {
+		c.JSON(500, "Internal Server Error")
+		return
+	}
+	c.JSON(204, "")
+}

@@ -30,3 +30,9 @@ func (interactor *UserInteractor) UserEdit(id int, user models.User) (models.Use
 	editedUser, err := interactor.UserRepository.Edit(id, user)
 	return editedUser, err
 }
+
+// UserDelete is to edit a user
+func (interactor *UserInteractor) UserDelete(id int) error {
+	err := interactor.UserRepository.Destroy(id)
+	return err
+}

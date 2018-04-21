@@ -42,21 +42,22 @@ func NewSQLHandler() *SQLHandler {
 // Insert is to insert models
 func (handler *SQLHandler) Insert(user models.User) (models.User, error) {
 	var newUser *models.User
-	res := handler.Db.Create(&user)
-	if res.Error != nil {
-		return models.User{}, res.Error
+
+	createResult := handler.Db.Create(&user)
+	if createResult.Error != nil {
+		return models.User{}, createResult.Error
 	}
-	newUser = res.Value.(*models.User)
+	newUser = createResult.Value.(*models.User)
 	return *newUser, nil
 }
 
 // Find is to get user by id
 func (handler *SQLHandler) Find(id int) (models.User, error) {
 	user := models.User{}
-	res := handler.Db.First(&user, id)
+	findResult := handler.Db.First(&user, id)
 
-	if res.Error != nil {
-		return models.User{}, res.Error
+	if findResult.Error != nil {
+		return models.User{}, findResult.Error
 	}
 	return user, nil
 }
@@ -64,10 +65,10 @@ func (handler *SQLHandler) Find(id int) (models.User, error) {
 // All is to get all user
 func (handler *SQLHandler) All() ([]models.User, error) {
 	users := []models.User{}
-	res := handler.Db.Find(&users)
+	findResult := handler.Db.Find(&users)
 
-	if res.Error != nil {
-		return []models.User{}, res.Error
+	if findResult.Error != nil {
+		return []models.User{}, findResult.Error
 	}
 	return users, nil
 }
@@ -75,11 +76,33 @@ func (handler *SQLHandler) All() ([]models.User, error) {
 // Update is to update a user
 func (handler *SQLHandler) Update(id int, user models.User) (models.User, error) {
 	var userBefore, userAfter models.User
-	handler.Db.First(&userBefore, id)
-	res := handler.Db.Model(&userBefore).Update(user)
-	if res.Error != nil {
-		return models.User{}, res.Error
+	// find a user by id
+	findResult := handler.Db.First(&userBefore, id)
+	if findResult.Error != nil {
+		return models.User{}, findResult.Error
 	}
+	// update the found user
+	updateResult := handler.Db.Model(&userBefore).Update(user)
+	if updateResult.Error != nil {
+		return models.User{}, updateResult.Error
+	}
+	// get the updated user
 	handler.Db.First(&userAfter, id)
 	return userAfter, nil
+}
+
+// Delete is to delete user by id
+func (handler *SQLHandler) Delete(id int) error {
+	user := models.User{}
+	// find a user by id
+	findResult := handler.Db.First(&user, id)
+	if findResult.Error != nil {
+		return findResult.Error
+	}
+	// delete the found user
+	deleteResult := handler.Db.Delete(&user)
+	if deleteResult.Error != nil {
+		return deleteResult.Error
+	}
+	return nil
 }

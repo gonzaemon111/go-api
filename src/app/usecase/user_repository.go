@@ -8,4 +8,5 @@ type UserRepository interface {
 	FindByID(int) (models.User, error)
 	FindAll() ([]models.User, error)
 	Edit(int, models.User) (models.User, error)
+	Destroy(int) error
 }
