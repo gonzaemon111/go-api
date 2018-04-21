@@ -24,3 +24,9 @@ func (repo *UserRepository) FindAll() ([]models.User, error) {
 	users, err := repo.All()
 	return users, err
 }
+
+// Edit is to edit a user
+func (repo *UserRepository) Edit(id int, user models.User) (models.User, error) {
+	updatedUser, err := repo.Update(id, user)
+	return updatedUser, err
+}

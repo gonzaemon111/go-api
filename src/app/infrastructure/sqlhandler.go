@@ -71,3 +71,15 @@ func (handler *SQLHandler) All() ([]models.User, error) {
 	}
 	return users, nil
 }
+
+// Update is to update a user
+func (handler *SQLHandler) Update(id int, user models.User) (models.User, error) {
+	var userBefore, userAfter models.User
+	handler.Db.First(&userBefore, id)
+	res := handler.Db.Model(&userBefore).Update(user)
+	if res.Error != nil {
+		return models.User{}, res.Error
+	}
+	handler.Db.First(&userAfter, id)
+	return userAfter, nil
+}

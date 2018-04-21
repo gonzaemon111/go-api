@@ -7,8 +7,8 @@ type UserInteractor struct {
 	UserRepository UserRepository
 }
 
-// Add is to add a new user
-func (interactor *UserInteractor) Add(u models.User) (models.User, error) {
+// UserAdd is to add a new user
+func (interactor *UserInteractor) UserAdd(u models.User) (models.User, error) {
 	newUser, err := interactor.UserRepository.Store(u)
 	return newUser, err
 }
@@ -23,4 +23,10 @@ func (interactor *UserInteractor) UserByID(id int) (models.User, error) {
 func (interactor *UserInteractor) Users() ([]models.User, error) {
 	users, err := interactor.UserRepository.FindAll()
 	return users, err
+}
+
+// UserEdit is to edit a user
+func (interactor *UserInteractor) UserEdit(id int, user models.User) (models.User, error) {
+	editedUser, err := interactor.UserRepository.Edit(id, user)
+	return editedUser, err
 }

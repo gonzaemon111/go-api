@@ -28,7 +28,7 @@ func NewUserController(sqlHandler database.SQLHandler) *UserController {
 func (controller *UserController) Create(c Context) {
 	user := models.User{}
 	c.Bind(&user)
-	newUser, err := controller.Interactor.Add(user)
+	newUser, err := controller.Interactor.UserAdd(user)
 	if err != nil {
 		c.JSON(500, "Internal Server Error")
 		return
@@ -55,4 +55,17 @@ func (controller *UserController) Index(c Context) {
 		return
 	}
 	c.JSON(200, users)
+}
+
+// Update is to update a user
+func (controller *UserController) Update(c Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	user := models.User{}
+	c.Bind(&user)
+	updatedUser, err := controller.Interactor.UserEdit(id, user)
+	if err != nil {
+		c.JSON(500, "Internal Server Error")
+		return
+	}
+	c.JSON(200, updatedUser)
 }
