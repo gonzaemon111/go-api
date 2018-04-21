@@ -14,6 +14,7 @@ func init() {
 
 	userController := controllers.NewUserController(NewSQLHandler())
 
+	router.GET("/", func(c *gin.Context) { c.JSON(200, gin.H{"message": "Hello World!!"}) })
 	router.POST("/users", func(c *gin.Context) { userController.Create(c) })
 	router.GET("/users/:id", func(c *gin.Context) { userController.Show(c) })
 	router.GET("/users/", func(c *gin.Context) { userController.Index(c) })
