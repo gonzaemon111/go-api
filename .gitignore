@@ -13,4 +13,4 @@
 *.out
 
 
-api/gin-bin
+app/gin-bin

@@ -4,3 +4,5 @@ RUN mkdir -p /go/src/app
 WORKDIR /go/src/app
 
 RUN go get github.com/gin-gonic/gin
+RUN go get github.com/jinzhu/gorm
+RUN go get github.com/jinzhu/gorm/dialects/postgres
