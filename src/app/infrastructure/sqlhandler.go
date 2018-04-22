@@ -17,11 +17,11 @@ type SQLHandler struct {
 // NewSQLHandler generates the instance of SQLHandler
 func NewSQLHandler() *SQLHandler {
 	authConnect := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
-		os.Getenv("AUTH_DB_HOST"),
-		os.Getenv("AUTH_DB_PORT"),
-		os.Getenv("AUTH_DB_USER"),
-		os.Getenv("AUTH_DB_NAME"),
-		os.Getenv("AUTH_DB_PASSWORD"))
+		os.Getenv("PGHOST"),
+		os.Getenv("PGPORT"),
+		os.Getenv("PGUSER"),
+		os.Getenv("PGDBNAME"),
+		os.Getenv("PGPASSWORD"))
 
 	db, err := gorm.Open("postgres", authConnect)
 
