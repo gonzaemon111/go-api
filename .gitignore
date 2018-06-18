@@ -13,4 +13,6 @@
 *.out
 
 
-api/gin-bin
+src/app/gin-bin
+.vscode
+pkg
